@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>가계부</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="cal">
+          <div class="cal-header">
+            <div data-previous-preview class="cal-previous-preview">2</div>
+            <div data-current-preview class="cal-current-preview"></div>
+          </div>
+          <div class="cal-body">
+            <div class="cal-space">
+              <button data-btn-reset>AC</button>
+              <button data-btn-negative>+/-</button>
+              <button data-btn-delete>DEL</button>
+              <button data-btn-divide data-btn-operation class="operation">
+                ÷
+              </button>
+            </div>
+            <div class="cal-space">
+              <button data-btn-number class="number">1</button>
+              <button data-btn-number class="number">2</button>
+              <button data-btn-number class="number">3</button>
+              <button data-btn-multiply data-btn-operation class="operation">
+                *
+              </button>
+            </div>
+            <div class="cal-space">
+              <button data-btn-number class="number">4</button>
+              <button data-btn-number class="number">5</button>
+              <button data-btn-number class="number">6</button>
+              <button data-btn-minus data-btn-operation class="operation">
+                -
+              </button>
+            </div>
+            <div class="cal-space">
+              <button data-btn-number class="number">7</button>
+              <button data-btn-number class="number">8</button>
+              <button data-btn-number class="number">9</button>
+              <button data-btn-plus data-btn-operation class="operation">
+                +
+              </button>
+            </div>
+            <div class="cal-space" style="padding-bottom: 15px">
+              <button data-btn-number class="space-2 number">0</button>
+              <button data-btn-number class="number">.</button>
+              <button data-btn-equal data-btn-operation class="operation">
+                =
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
