@@ -1,44 +1,70 @@
-class Caluculator {
-  $previousPriviewPrompt = "";
-  $currentPriviewPrompt = "";
-  previousOperation = "";
-  currentOperation = "";
-
-  constructor($previousPriview, $currentPriview) {
-    this.$previousPriviewPrompt = $previousPriview;
-    this.$currentPriviewPrompt = $currentPriview;
+class Calculator {
+  constructor($previousPreview, $currentPreview) {
+    this.$previousPreview = $previousPreview;
+    this.$currentPreview = $currentPreview;
+    this.previousOperation = "";
+    this.currentOperation = "";
   }
 
-  // 숫자입력
+  // 숫자 입력
   onPressNumber(number) {
-    this.$currentPriviewPrompt.textContent += number;
+    this.$currentPreview.textContent += number;
   }
 
   onPressOperation(operation) {
-    this.$previousPriviewPrompt.textContent =
-      this.$currentPriviewPrompt.textContent + " " + operation;
-    this.$currentPriviewPrompt.textContent = "";
-    //previousOperation, currentOperation 작업
+    if (this.$currentPreview.textContent === "") return;
+
+    if (this.$previousPreview.textContent !== "") {
+      this.onEqual();
+    }
+
+    this.$previousPreview.textContent =
+      this.$currentPreview.textContent + " " + operation;
+    this.$currentPreview.textContent = "";
+    this.previousOperation = operation;
   }
 
   onEqual() {
-    // 밑에 메서드 이용해서 완성하기
-    this.handlePlus();
+    let result = 0;
+    const previous = parseFloat(
+      this.$previousPreview.textContent.split(" ")[0]
+    );
+    const current = parseFloat(this.$currentPreview.textContent);
+
+    switch (this.previousOperation) {
+      case "+":
+        result = previous + current;
+        break;
+      case "-":
+        result = previous - current;
+        break;
+      case "*":
+        result = previous * current;
+        break;
+      case "÷":
+        result = previous / current;
+        break;
+      default:
+        return;
+    }
+
+    this.$previousPreview.textContent = "";
+    this.$currentPreview.textContent = result.toString();
+    this.previousOperation = "";
   }
-  handlePlus() {}
-  handleMinus() {}
-  handleMultifly() {}
-  handleDivide() {}
 
   onReset() {
-    this.$previousPriviewPrompt.textContent = "";
-    this.$currentPriviewPrompt.textContent = "";
+    this.$previousPreview.textContent = "";
+    this.$currentPreview.textContent = "";
     this.previousOperation = "";
     this.currentOperation = "";
   }
 
   onDelete() {
-    console.log("삭제");
+    this.$currentPreview.textContent = this.$currentPreview.textContent.slice(
+      0,
+      -1
+    );
   }
 }
 
@@ -46,7 +72,7 @@ class Caluculator {
 const $plus = document.querySelector("[data-btn-plus]");
 const $minus = document.querySelector("[data-btn-minus]");
 const $divide = document.querySelector("[data-btn-divide]");
-const $multifly = document.querySelector("[data-btn-multifly]");
+const $multiply = document.querySelector("[data-btn-multiply]");
 const $equal = document.querySelector("[data-btn-equal]");
 
 // AC, DEL
@@ -58,9 +84,9 @@ const $numbers = document.querySelectorAll("[data-btn-number]");
 const $operations = document.querySelectorAll("[data-btn-operation]");
 
 // 프롬프트
-const $previousPriview = document.querySelector("[data-previous-preview]");
-const $currentPriview = document.querySelector("[data-current-preview]");
-const calc = new Caluculator($previousPriview, $currentPriview);
+const $previousPreview = document.querySelector("[data-previous-preview]");
+const $currentPreview = document.querySelector("[data-current-preview]");
+const calc = new Calculator($previousPreview, $currentPreview);
 
 // 숫자 선택
 $numbers.forEach(($number) => {
@@ -72,22 +98,19 @@ $numbers.forEach(($number) => {
 // 연산자 선택
 $operations.forEach(($operation) => {
   $operation.addEventListener("click", (e) => {
-    if (e.target.textContent === "+") {
-      calc.onPressOperation("+");
-    } else if (e.target.textContent === "-") {
-      calc.onPressOperation("-");
-    } else if (e.target.textContent === "*") {
-      calc.onPressOperation("*");
-    } else if (e.target.textContent === "÷") {
-      calc.onPressOperation("÷");
+    const operation = e.target.textContent.trim();
+    if (operation === "=") {
+      calc.onEqual();
+    } else {
+      calc.onPressOperation(operation);
     }
   });
 });
 
-//리셋, 삭제
-$reset.addEventListener("click", (e) => {
+// 리셋, 삭제
+$reset.addEventListener("click", () => {
   calc.onReset();
 });
-$delete.addEventListener("click", (e) => {
+$delete.addEventListener("click", () => {
   calc.onDelete();
 });
