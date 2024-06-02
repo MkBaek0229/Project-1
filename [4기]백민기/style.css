@@ -49,10 +49,6 @@ body {
   border-top-right-radius: 50px;
 }
 
-.cal-header > div {
-  background-color: white;
-}
-
 .cal-body {
   margin-top: -4px;
   background-color: black;
@@ -62,12 +58,12 @@ body {
 
 .cal-header .cal-previous-preview {
   opacity: 0.7;
-  font-size: 48px;
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
 .cal-header .cal-current-preview {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 .cal .cal-body .cal-space {
